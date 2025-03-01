@@ -1,50 +1,88 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+# 🚀 React Native Auth App
 
-1. Install dependencies
+Este projeto é um exemplo de aplicativo de autenticação desenvolvido com **React Native** utilizando **Expo**. O aplicativo se conecta a uma API de autenticação (**Node.js, JWT e MongoDB**) para gerenciar **cadastro** e **login** de usuários.  
 
-   ```bash
-   npm install
-   ```
+## ✨ Recursos
 
-2. Start the app
+✔ **Autenticação:** Telas para **cadastro** e **login** de usuários.  
+📁 **Navegação Baseada em Arquivos:** Uso do **Expo Router** com uma estrutura organizada na pasta `app` (incluindo `auth`).  
+🔐 **Armazenamento Seguro:** Utilização do `expo-secure-store` para guardar tokens JWT.  
+🌍 **Integração com API:** Requisições HTTP para uma **API de autenticação** que utiliza **Node.js, JWT e MongoDB**.  
 
-   ```bash
-    npx expo start
-   ```
+## 📂 Estrutura do Projeto
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```plaintext
+MyAuthApp/
+├── app/                           // 📁 Rotas definidas pelo Expo Router
+│   ├── _layout.tsx                // 🏗️ Layout global (renderiza o Slot do Expo Router)
+│   ├── index.tsx                  // 🔄 Rota raiz que redireciona para a tela de login
+│   ├── auth/                      // 🔑 Pasta para telas de autenticação
+│   │   ├── login.tsx              // 🔓 Tela de Login
+│   │   └── register.tsx           // 📝 Tela de Cadastro
+│   └── home.tsx                   // 🏠 Tela protegida (Home)
+├── assets/                        // 🎨 Arquivos estáticos (imagens, fontes, etc.)
+├── package.json                   // 📦 Dependências e scripts do projeto
+├── tsconfig.json                  // ⚙️ Configurações do TypeScript
+└── app.json                       // ⚙️ Configurações do Expo
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔧 Pré-requisitos
 
-## Learn more
+✅ **Node.js** e **npm** ou **yarn** instalados.  
+✅ **Expo CLI** instalado globalmente:  
+```bash
+npm install -g expo-cli
+```
+✅ Uma **API de autenticação** (Node.js, JWT, MongoDB) rodando ou URLs ajustadas conforme seu ambiente.  
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📥 Instalação
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+1️⃣ **Clone o repositório:**  
+   ```bash
+   git clone https://github.com/seu-usuario/MyAuthApp.git
+   cd MyAuthApp
+   ```
+   
+2️⃣ **Instale as dependências:**  
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
+   
+3️⃣ **Configure as variáveis de ambiente** (se necessário) para ajustar as URLs da API e outras configurações.  
 
-## Join the community
+## ▶️ Executando o Projeto
 
-Join our community of developers creating universal apps.
+Para iniciar o projeto, execute:  
+```bash
+expo start
+```
+Em seguida, abra o aplicativo no emulador ou em um dispositivo físico utilizando o aplicativo **Expo Go**. 📱  
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🔍 Navegação
+
+A navegação é baseada na estrutura de arquivos com o **Expo Router**:
+
+- **`/`** → Rota raiz (**index.tsx**) que redireciona automaticamente para **`/auth/login`**.  
+- **`/auth/login`** → 🔓 Tela de Login.  
+- **`/auth/register`** → 📝 Tela de Cadastro.  
+- **`/home`** → 🏠 Tela protegida, acessível após a autenticação.  
+
+> ⚠ **Observação:** O redirecionamento na rota raiz é feito utilizando `router.replace('auth/login')` com um `setTimeout` para garantir que o layout esteja montado.  
+
+## 🎨 Personalização e Contribuições
+
+💡 **Personalização:**  
+Ajuste os **estilos**, **validações** e **integrações** conforme a necessidade do seu projeto.  
+
+🤝 **Contribuições:**  
+Contribuições são **bem-vindas**! Sinta-se à vontade para abrir **issues** ou enviar **pull requests** com melhorias e correções.  
+
+## 📜 Licença
+
+Este projeto está licenciado sob a **[MIT License](LICENSE)**. 📄  
+
+---

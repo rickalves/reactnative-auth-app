@@ -33,7 +33,7 @@ export default function Register() {
         tipo,   // Envia o tipo do usuario
       });
       // Após cadastro bem-sucedido, redireciona para a tela de login
-      router.replace('/auth/login');
+      router.replace('./confirmation');
     } catch (error) {
       // Em caso de erro, exibe a mensagem de erro no console
       console.log('Erro no cadastro:', error);

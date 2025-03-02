@@ -20,24 +20,27 @@ export default function Login() {
   const router = useRouter();
 
   // Função para lidar com o processo de login
-  const handleLogin = async () => {
-    try {
-      // Realiza uma requisição POST para a API de login, enviando email e senha
-      const response = await axios.post('http://192.168.68.102:5000/api/auth/login', {
-        email,      // Envia o email informado
-        senha,   // Envia a senha informada
-      });
-      // Recupera o token JWT retornado pela API
-      const token = response.data.token;
-      // Armazena o token de forma segura utilizando o SecureStore
-      await SecureStore.setItemAsync('userToken', token);
-      // Após login bem-sucedido, redireciona para a tela Home
-      router.replace('../home');
-    } catch (error) {
-      // Em caso de erro, exibe a mensagem de erro no console
-      console.log('Erro no login:', error);
-    }
-  };
+const handleLogin = async () => {
+  try {
+    const response = await axios.post('http://192.168.68.102:5000/api/auth/login', {
+      email,
+      senha,
+    });
+
+    const { token, usuario } = response.data; // Pega o token e os dados do usuário
+
+    // Armazena o token
+    await SecureStore.setItemAsync('userToken', token);
+
+    // Armazena o objeto de usuário convertendo para string JSON
+    await SecureStore.setItemAsync('userData', JSON.stringify(usuario));
+
+    router.replace('/home'); // Redireciona para Home
+  } catch (error) {
+    console.log('Erro no login:', error);
+  }
+};
+
 
   return (
     // Renderiza a interface da tela de login

@@ -10,11 +10,14 @@ import { useRouter } from 'expo-router';
 // Componente Register para a tela de cadastro
 export default function Register() {
   // Estado para armazenar o nome digitado pelo usuário
-  const [name, setName] = useState('');
+  const [nome, setNome] = useState('');
   // Estado para armazenar o email digitado pelo usuário
   const [email, setEmail] = useState('');
   // Estado para armazenar a senha digitada pelo usuário
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
+  
+  // Estado para armazenar a senha digitada pelo usuário
+  const [tipo, setTipo] = useState('Aluno');
 
   // Inicializa o hook useRouter para controlar a navegação
   const router = useRouter();
@@ -23,10 +26,11 @@ export default function Register() {
   const handleRegister = async () => {
     try {
       // Realiza uma requisição POST para a API de cadastro, enviando nome, email e senha
-      await axios.post('http://<seu-ip-ou-url-da-api>/api/auth/register', {
-        name,       // Envia o nome informado
+      await axios.post('http://192.168.68.102:5000/api/auth/register', {
+        nome,       // Envia o nome informado
         email,      // Envia o email informado
-        password,   // Envia a senha informada
+        senha,   // Envia a senha informada
+        tipo,   // Envia o tipo do usuario
       });
       // Após cadastro bem-sucedido, redireciona para a tela de login
       router.replace('/auth/login');
@@ -44,8 +48,8 @@ export default function Register() {
       {/* Campo de entrada para o nome */}
       <TextInput
         placeholder="Nome"              // Texto de sugestão para o campo
-        value={name}                    // Valor atual do estado name
-        onChangeText={setName}           // Atualiza o estado ao digitar
+        value={nome}                    // Valor atual do estado name
+        onChangeText={setNome}           // Atualiza o estado ao digitar
         style={styles.input}            // Aplica o estilo definido para o input
       />
       {/* Campo de entrada para o email */}
@@ -60,8 +64,8 @@ export default function Register() {
       {/* Campo de entrada para a senha */}
       <TextInput
         placeholder="Senha"             // Texto de sugestão para o campo
-        value={password}                // Valor atual do estado password
-        onChangeText={setPassword}       // Atualiza o estado ao digitar
+        value={senha}                // Valor atual do estado password
+        onChangeText={setSenha}       // Atualiza o estado ao digitar
         secureTextEntry                // Oculta os caracteres para segurança
         style={styles.input}            // Aplica o estilo definido para o input
       />

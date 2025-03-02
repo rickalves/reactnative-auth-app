@@ -14,7 +14,7 @@ export default function Login() {
   // Estado para armazenar o valor do email digitado
   const [email, setEmail] = useState('');
   // Estado para armazenar o valor da senha digitada
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
 
   // Inicializa o hook useRouter para controlar a navegação
   const router = useRouter();
@@ -23,9 +23,9 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       // Realiza uma requisição POST para a API de login, enviando email e senha
-      const response = await axios.post('http://<seu-ip-ou-url-da-api>/api/auth/login', {
+      const response = await axios.post('http://192.168.68.102:5000/api/auth/login', {
         email,      // Envia o email informado
-        password,   // Envia a senha informada
+        senha,   // Envia a senha informada
       });
       // Recupera o token JWT retornado pela API
       const token = response.data.token;
@@ -56,8 +56,8 @@ export default function Login() {
       {/* Campo de entrada para a senha */}
       <TextInput
         placeholder="Senha"             // Texto de sugestão para o campo
-        value={password}                // Valor atual do estado password
-        onChangeText={setPassword}       // Atualiza o estado ao digitar
+        value={senha}                // Valor atual do estado password
+        onChangeText={setSenha}       // Atualiza o estado ao digitar
         secureTextEntry                // Oculta os caracteres para segurança
         style={styles.input}            // Aplica o estilo definido para o input
       />

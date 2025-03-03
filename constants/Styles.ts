@@ -52,4 +52,9 @@ export const Styles =  StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+  message: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
 });

@@ -1,7 +1,7 @@
 // Importa o React e o hook useState
 import React, { useState } from 'react';
 // Importa componentes do React Native para construir a interface
-import { View, TextInput, Text, TouchableOpacity} from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 // Importa axios para realizar requisições HTTP à API
 import axios from 'axios';
 // Importa SecureStore para armazenar o token de forma segura no dispositivo
@@ -58,7 +58,6 @@ export default function Login() {
 
       router.replace('/home'); // Redireciona para Home
     } catch (error: any) {
-      console.log('Erro no login:', error);
       // 🔹 Captura mensagens de erro vindas da API
       if (error.response) {
         setErrorMessage(error.response.data.error || 'Erro ao fazer login.');
@@ -67,9 +66,6 @@ export default function Login() {
       }
     }
   };
-
-
-
 
   return (
     // Renderiza a interface da tela de login
@@ -98,20 +94,24 @@ export default function Login() {
           setSenha(text); // Atualiza o estado
           setPasswordError(false); // Remove o erro ao digitar
         }}
-        secureTextEntry                // Oculta os caracteres para segurança
+        secureTextEntry // Oculta os caracteres para segurança
         style={[Styles.input, passwordError && Styles.inputError]} // Aplica estilo de erro condicionalmente
       />
-      {/* 🔹 Exibe a mensagem de erro caso haja algum problema */}
+    
       {errorMessage ? <Text style={Styles.errorText}>{errorMessage}</Text> : null}
 
-      {/* Botão de login reutilizando estilos */}
+   
       <TouchableOpacity style={Styles.button} onPress={handleLogin}>
         <Text style={Styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
 
-      {/* Botão de cadastro reutilizando estilos */}
+    
       <TouchableOpacity onPress={() => router.push('/auth/register')}>
         <Text style={{ color: Colors.primary, marginTop: 10 }}>Cadastrar-se</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity onPress={() => router.push('/auth/passwordRecovery')}>
+        <Text style={{ color: Colors.primary, marginTop: 10 }}>Recuperar Senha</Text>
       </TouchableOpacity>
     </View>
   );

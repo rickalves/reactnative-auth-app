@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 import { Styles } from '@/constants/Styles'
 import { Colors } from '@/constants/Colors'
 export default function Home() {
-  const [userData, setUserData] = useState<{ nome: string} | null>(null);
+  const [userData, setUserData] = useState<{ nome: string } | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Home() {
     <View style={Styles.container}>
       <Text style={Styles.title}>Bem-vindo, {userData?.nome || 'Usuário'}! 🎉</Text>
       <TouchableOpacity onPress={handleLogout}>
-         <Text style={{ color: Colors.primary, marginTop: 10 }}>Sair</Text>
+        <Text style={{ color: Colors.primary, marginTop: 10 }}>Sair</Text>
       </TouchableOpacity>
     </View>
   );

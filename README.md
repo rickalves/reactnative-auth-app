@@ -20,7 +20,8 @@ MyAuthApp/
 │   ├── index.tsx                  // 🔄 Rota raiz que redireciona para a tela de login
 │   ├── auth/                      // 🔑 Pasta para telas de autenticação
 │   │   ├── login.tsx              // 🔓 Tela de Login
-│   │   └── register.tsx           // 📝 Tela de Cadastro
+│   │   ├── register.tsx           // 📝 Tela de Cadastro
+|   |   ├── passwordRecovery.tsx   // 🔓 Recuperação de senha 
 │   └── home.tsx                   // 🏠 Tela protegida (Home)
 ├── assets/                        // 🎨 Arquivos estáticos (imagens, fontes, etc.)
 ├── package.json                   // 📦 Dependências e scripts do projeto

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { useRouter } from 'expo-router';
 
+import { Styles } from '@/constants/Styles'
+import { Colors } from '@/constants/Colors'
 export default function Home() {
   const [userData, setUserData] = useState<{ nome: string} | null>(null);
   const router = useRouter();
@@ -29,23 +31,11 @@ export default function Home() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo, {userData?.nome || 'Usuário'}! 🎉</Text>
-      <Button title="Sair" onPress={handleLogout} />
+    <View style={Styles.container}>
+      <Text style={Styles.title}>Bem-vindo, {userData?.nome || 'Usuário'}! 🎉</Text>
+      <TouchableOpacity onPress={handleLogout}>
+         <Text style={{ color: Colors.primary, marginTop: 10 }}>Sair</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-});

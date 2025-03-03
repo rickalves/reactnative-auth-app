@@ -1,11 +1,14 @@
 // Importa o React e o hook useState
 import React, { useState } from 'react';
 // Importa componentes do React Native para construir a interface
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 // Importa axios para realizar requisições HTTP à API
 import axios from 'axios';
 // Importa o hook useRouter para navegação programática
 import { useRouter } from 'expo-router';
+
+import { Styles } from '@/constants/Styles'; // Importando estilos globais
+import { Colors } from '@/constants/Colors'; //Importando cores globais
 
 // Componente Register para a tela de cadastro
 export default function Register() {
@@ -67,10 +70,11 @@ export default function Register() {
 
   return (
     // Renderiza a interface da tela de cadastro
-    <View style={styles.container}>
+    <View style={Styles.container}>
       {/* Título da tela de cadastro */}
-      <Text style={styles.title}>Cadastro</Text>
+      <Text style={Styles.title}>Cadastro</Text>
       {/* Campo de entrada para o nome */}
+      <Text style={Styles.titleInput}>Nome:</Text>
       <TextInput
         placeholder="Nome"              // Texto de sugestão para o campo
         value={nome}                    // Valor atual do estado name
@@ -78,9 +82,10 @@ export default function Register() {
           setNome(text);// Atualiza o estado
           setNomeError(false);// Remove o erro ao digitar
         }}
-        style={[styles.input, nomeError && styles.inputError]}// Aplica estilo de erro condicionalmente
+        style={[Styles.input, nomeError && Styles.inputError]}// Aplica estilo de erro condicionalmente
       />
       {/* Campo de entrada para o email */}
+      <Text style={Styles.titleInput}>Email:</Text>
       <TextInput
         placeholder="Email"             // Texto de sugestão para o campo
         value={email}                   // Valor atual do estado email
@@ -88,11 +93,12 @@ export default function Register() {
           setEmail(text);// Atualiza o estado
           setEmailError(false);// Remove o erro ao digitar
         }}
-        style={[styles.input, emailError && styles.inputError]}// Aplica estilo de erro condicionalmente
+        style={[Styles.input, emailError && Styles.inputError]}// Aplica estilo de erro condicionalmente
         keyboardType="email-address"    // Configura o teclado para digitar emails
         autoCapitalize="none"           // Evita a capitalização automática do texto
       />
       {/* Campo de entrada para a senha */}
+      <Text style={Styles.titleInput}>Senha:</Text>
       <TextInput
         placeholder="Senha"             // Texto de sugestão para o campo
         value={senha}                // Valor atual do estado password
@@ -100,47 +106,25 @@ export default function Register() {
           setSenha(text);// Atualiza o estado
           setSenhaError(false);// Remove o erro ao digitar
         }}
-        style={[styles.input, senhaError && styles.inputError]}// Aplica estilo de erro condicionalmente
+        style={[Styles.input, senhaError && Styles.inputError]}// Aplica estilo de erro condicionalmente
         secureTextEntry                // Oculta os caracteres para segurança
       />
 
       {/* 🔹 Exibe a mensagem de erro caso haja algum problema */}
-      {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text>  : null}
+      {errorMessage ? <Text style={Styles.errorText}>{errorMessage}</Text> : null}
 
       {/* Botão para efetuar o cadastro */}
-      <Button title="Cadastrar" onPress={handleRegister} />
+
+      <TouchableOpacity style={Styles.button} onPress={handleRegister}>
+        <Text style={Styles.buttonText}>Cadastrar</Text>
+      </TouchableOpacity>
+
       {/* Botão para voltar para a tela de login */}
-      <Button title="Voltar para Login" onPress={() => router.push('/auth/login')} />
+      <TouchableOpacity onPress={() => router.push('/auth/login')}>
+        <Text style={{ color: Colors.primary, marginTop: 10 }}>Voltar para login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
-// Estilos para o componente Register
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,               // Ocupa toda a tela
-    padding: 20,           // Aplica preenchimento interno
-    justifyContent: 'center', // Centraliza verticalmente
-    gap: 8,
-  },
-  title: {
-    fontSize: 24,          // Define o tamanho da fonte do título
-    marginBottom: 20,      // Adiciona espaço abaixo do título
-    textAlign: 'center',   // Centraliza o texto do título
-  },
-  input: {
-    borderBottomWidth: 1,  // Define a largura da borda inferior do input
-    marginBottom: 15,      // Adiciona espaço abaixo do input
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 8,          // Adiciona preenchimento interno ao input
-  },
-  inputError: {
-    borderColor: 'red',
-  },
-  errorText: {
-    color: 'red', // 🔹 Cor vermelha para destacar o erro
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-});
+

@@ -15,18 +15,22 @@ Este projeto é um exemplo de aplicativo de autenticação desenvolvido com **Re
 
 ```plaintext
 MyAuthApp/
-├── app/                           // 📁 Rotas definidas pelo Expo Router
-│   ├── _layout.tsx                // 🏗️ Layout global (renderiza o Slot do Expo Router)
-│   ├── index.tsx                  // 🔄 Rota raiz que redireciona para a tela de login
-│   ├── auth/                      // 🔑 Pasta para telas de autenticação
-│   │   ├── login.tsx              // 🔓 Tela de Login
-│   │   ├── register.tsx           // 📝 Tela de Cadastro
-|   |   ├── passwordRecovery.tsx   // 🔓 Recuperação de senha 
-│   └── home.tsx                   // 🏠 Tela protegida (Home)
-├── assets/                        // 🎨 Arquivos estáticos (imagens, fontes, etc.)
-├── package.json                   // 📦 Dependências e scripts do projeto
-├── tsconfig.json                  // ⚙️ Configurações do TypeScript
-└── app.json                       // ⚙️ Configurações do Expo
+├── app/                           // Rotas definidas pelo Expo Router
+│   ├── _layout.tsx                // Layout global (renderiza o Slot do Expo Router)
+│   ├── index.tsx                  // Rota raiz que redireciona para a tela de login
+│   ├── auth/                      // Pasta para telas de autenticação
+│   │   ├── confirmation.tsx       // Tela de confirmação de cadastro
+│   │   ├── emailSent.tsx          // Tela de confirmação de envio de email
+|   |   ├── login.tsx              // Tela de login
+|   |   ├── passwordRecovery.tsx   // Tela de recuperação de senha 
+|   |   ├── register.tsx           // Tela de cadastro de usuário
+|   |   ├── resetPassword.tsx      // Tela de redefinição de senha
+|   |   └── verifyCode.tsx         // Tela de verificação de código
+│   └── home.tsx                   // Tela protegida (Home)
+├── assets/                        // Arquivos estáticos (imagens, fontes, etc.)
+├── package.json                   // Dependências e scripts do projeto
+├── tsconfig.json                  // Configurações do TypeScript
+└── app.json                       // Configurações do Expo
 ```
 
 ## 🔧 Pré-requisitos
@@ -68,8 +72,7 @@ Em seguida, abra o aplicativo no emulador ou em um dispositivo físico utilizand
 A navegação é baseada na estrutura de arquivos com o **Expo Router**:
 
 - **`/`** → Rota raiz (**index.tsx**) que redireciona automaticamente para **`/auth/login`**.  
-- **`/auth/login`** → 🔓 Tela de Login.  
-- **`/auth/register`** → 📝 Tela de Cadastro.  
+- **`/auth/*`** → 🔓 Telas de autenticação.
 - **`/home`** → 🏠 Tela protegida, acessível após a autenticação.  
 
 > ⚠ **Observação:** O redirecionamento na rota raiz é feito utilizando `router.replace('auth/login')` com um `setTimeout` para garantir que o layout esteja montado.  

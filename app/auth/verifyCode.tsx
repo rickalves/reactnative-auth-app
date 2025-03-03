@@ -12,7 +12,7 @@ export default function VerifyCode() {
   const [message, setMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState(false);
   const router = useRouter();
-
+ // Função para verificar o código
   const handleVerifyCode = async () => {
     const fullCode = code.join('');
     if (fullCode.length !== 6) {
@@ -42,13 +42,13 @@ export default function VerifyCode() {
       setErrorMessage(true);
     }
   };
-
+ // Função para alterar o código
   const handleChangeText = (text:string, index:number):void => {
     const newCode = [...code];
     newCode[index] = text;
     setCode(newCode);
   };
-
+ // Função para colar o código da área de transferência
   const handlePaste = async () => {
     const clipboardContent = await Clipboard.getStringAsync();
     if (clipboardContent.length === 6 && /^\d+$/.test(clipboardContent)) {
@@ -57,7 +57,7 @@ export default function VerifyCode() {
       setMessage('');
     }
   };
-
+  // Função para reenviar o email de recuperação
   const handleResendEmail = async () => {
     try {
       setErrorMessage(false);

@@ -8,6 +8,7 @@ export const Styles =  StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 8,
   },
   title: {
     fontSize: 24,
@@ -49,6 +50,11 @@ export const Styles =  StyleSheet.create({
   },
   errorText: {
     color: Colors.error,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  successText: {
+    color: Colors.success,
     textAlign: 'center',
     marginBottom: 10,
   },

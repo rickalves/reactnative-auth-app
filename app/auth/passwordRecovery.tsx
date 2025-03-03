@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useRouter } from 'expo-router';
 import { Styles } from '../../constants/Styles'; // Importando estilos globais
 import { Colors } from '../../constants/Colors'; //Importando cores globais
-
+// Importa SecureStore para armazenar o token de forma segura no dispositivo
+import * as SecureStore from 'expo-secure-store';
 
 export default function PasswordRecovery() {
   const [email, setEmail] = useState('');
@@ -23,10 +24,15 @@ export default function PasswordRecovery() {
       setErrorMessage(false);
       setMessage('Enviando email de recuperação...');
 
-      const response = await axios.post('http://192.168.68.101:5000/api/auth/recover-password', { email });
-
-      if (response.data.success) {
+      const response = await axios.post('http://192.168.68.101:5000/api/auth/password-recovery', { email });
+      
+      if (response.status === 200) {
         setMessage('Email de recuperação enviado com sucesso!');
+        // Armazena o email de recuperação no SecureStore
+        await SecureStore.setItemAsync('recoveryEmail', email);
+        setTimeout(() => {
+          router.push('/auth/emailSent');
+        }, 2000);
       } else {
         setMessage('Erro ao enviar email de recuperação.');
       }
@@ -45,12 +51,13 @@ export default function PasswordRecovery() {
         onChangeText={(text) => {
           setEmail(text);
           setErrorMessage(false);
+          setMessage('');
         }}
         style={[Styles.input, errorMessage && Styles.inputError]}
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      {message ? <Text style={Styles.errorText}>{message}</Text> : null}
+      {message ? <Text style={errorMessage? Styles.errorText : Styles.successText}>{message}</Text> : null}
 
       <TouchableOpacity style={Styles.button} onPress={handlePasswordRecovery}>
         <Text style={Styles.buttonText}>Enviar Email</Text>

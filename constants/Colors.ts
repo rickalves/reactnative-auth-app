@@ -1,13 +1,11 @@
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
 export const Colors = {
-    primary: '#007AFF',  // Azul principal
-    secondary: '#34C759', // Verde secundário
-    background: '#F5F5F5', // Cinza claro de fundo
-    text: '#333', // Cor do texto principal
-    error: '#FF3B30', // Vermelho para erros
-    white: '#FFFFFF',
-    black: '#000000',
+    primary: '#3498db',
+    secondary: '#2ecc71',
+    accent: '#e74c3c',
+    background: '#ecf0f1',
+    text: '#2c3e50',
+    error: '#e74c3c',
+    success: '#2ecc71',
+    warning: '#f39c12',
+    white: '#ffffff',
   };
-  

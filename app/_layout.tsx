@@ -9,10 +9,7 @@ export default function Layout() {
   return (
     <>
       <Slot />;
-      <StatusBar 
-        style='dark'
-      />
+      <StatusBar style='dark'/>
     </>
   );
-
 }

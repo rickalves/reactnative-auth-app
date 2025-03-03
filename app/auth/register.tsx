@@ -1,7 +1,7 @@
 // Importa o React e o hook useState
 import React, { useState } from 'react';
 // Importa componentes do React Native para construir a interface
-import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 // Importa axios para realizar requisições HTTP à API
 import axios from 'axios';
 // Importa o hook useRouter para navegação programática
@@ -57,8 +57,7 @@ export default function Register() {
       // Após cadastro bem-sucedido, redireciona para a tela de login
       router.replace('./confirmation');
     } catch (error: any) {
-      // Em caso de erro, exibe a mensagem de erro no console
-      console.log('Erro no cadastro:', error);
+
       // 🔹 Captura mensagens de erro vindas da API
       if (error.response) {
         setErrorMessage(error.response.data.error || 'Erro ao fazer login.');

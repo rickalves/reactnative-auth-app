@@ -1,7 +1,8 @@
 // app/index.tsx
 import { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Styles } from '@/constants/Styles';
 
 export default function Index() {
   const router = useRouter();
@@ -18,16 +19,9 @@ export default function Index() {
   }, [router]);
 
   return (
-    <View style={styles.container}>
+    <View style={Styles.container}>
       <Text>Redirecionando para a tela de login...</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,               // Ocupa toda a tela
-    justifyContent: 'center', // Centraliza verticalmente
-    alignItems: 'center',     // Centraliza horizontalmente
-  },
-});

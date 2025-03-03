@@ -15,18 +15,37 @@ export default function Register() {
   const [email, setEmail] = useState('');
   // Estado para armazenar a senha digitada pelo usuário
   const [senha, setSenha] = useState('');
-  
+
   // Estado para armazenar a senha digitada pelo usuário
   const [tipo, setTipo] = useState('Aluno');
+
+  // Estado para armazenar mensagens de erro
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Estados para armazenar erros individuais dos inputs
+  const [nomeError, setNomeError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [senhaError, setSenhaError] = useState(false);
 
   // Inicializa o hook useRouter para controlar a navegação
   const router = useRouter();
 
   // Função para lidar com o processo de cadastro
   const handleRegister = async () => {
+    // 🔹 Valida se os campos estão preenchidos
+    if (!nome) setNomeError(true);
+    if (!email) setEmailError(true);
+    if (!senha) setSenhaError(true);
+
+    // 🔹 Verifica se os campos estão preenchidos antes de tentar o login
+    if (!nome || !senha || !email) {
+      setErrorMessage('Por favor, preencha todos os campos.');
+      return;
+    }
+
     try {
       // Realiza uma requisição POST para a API de cadastro, enviando nome, email e senha
-      await axios.post('http://192.168.68.102:5000/api/auth/register', {
+      await axios.post('http://192.168.68.101:5000/api/auth/register', {
         nome,       // Envia o nome informado
         email,      // Envia o email informado
         senha,   // Envia a senha informada
@@ -34,9 +53,15 @@ export default function Register() {
       });
       // Após cadastro bem-sucedido, redireciona para a tela de login
       router.replace('./confirmation');
-    } catch (error) {
+    } catch (error: any) {
       // Em caso de erro, exibe a mensagem de erro no console
       console.log('Erro no cadastro:', error);
+      // 🔹 Captura mensagens de erro vindas da API
+      if (error.response) {
+        setErrorMessage(error.response.data.error || 'Erro ao fazer login.');
+      } else {
+        setErrorMessage('Falha na conexão com o servidor.');
+      }
     }
   };
 
@@ -49,15 +74,21 @@ export default function Register() {
       <TextInput
         placeholder="Nome"              // Texto de sugestão para o campo
         value={nome}                    // Valor atual do estado name
-        onChangeText={setNome}           // Atualiza o estado ao digitar
-        style={styles.input}            // Aplica o estilo definido para o input
+        onChangeText={(text) => {
+          setNome(text);// Atualiza o estado
+          setNomeError(false);// Remove o erro ao digitar
+        }}
+        style={[styles.input, nomeError && styles.inputError]}// Aplica estilo de erro condicionalmente
       />
       {/* Campo de entrada para o email */}
       <TextInput
         placeholder="Email"             // Texto de sugestão para o campo
         value={email}                   // Valor atual do estado email
-        onChangeText={setEmail}          // Atualiza o estado ao digitar
-        style={styles.input}            // Aplica o estilo definido para o input
+        onChangeText={(text) => {
+          setEmail(text);// Atualiza o estado
+          setEmailError(false);// Remove o erro ao digitar
+        }}
+        style={[styles.input, emailError && styles.inputError]}// Aplica estilo de erro condicionalmente
         keyboardType="email-address"    // Configura o teclado para digitar emails
         autoCapitalize="none"           // Evita a capitalização automática do texto
       />
@@ -65,10 +96,17 @@ export default function Register() {
       <TextInput
         placeholder="Senha"             // Texto de sugestão para o campo
         value={senha}                // Valor atual do estado password
-        onChangeText={setSenha}       // Atualiza o estado ao digitar
+        onChangeText={(text) => {
+          setSenha(text);// Atualiza o estado
+          setSenhaError(false);// Remove o erro ao digitar
+        }}
+        style={[styles.input, senhaError && styles.inputError]}// Aplica estilo de erro condicionalmente
         secureTextEntry                // Oculta os caracteres para segurança
-        style={styles.input}            // Aplica o estilo definido para o input
       />
+
+      {/* 🔹 Exibe a mensagem de erro caso haja algum problema */}
+      {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text>  : null}
+
       {/* Botão para efetuar o cadastro */}
       <Button title="Cadastrar" onPress={handleRegister} />
       {/* Botão para voltar para a tela de login */}
@@ -83,7 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,               // Ocupa toda a tela
     padding: 20,           // Aplica preenchimento interno
     justifyContent: 'center', // Centraliza verticalmente
-    gap:8,
+    gap: 8,
   },
   title: {
     fontSize: 24,          // Define o tamanho da fonte do título
@@ -93,6 +131,16 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,  // Define a largura da borda inferior do input
     marginBottom: 15,      // Adiciona espaço abaixo do input
-    padding: 10,           // Adiciona preenchimento interno ao input
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 8,          // Adiciona preenchimento interno ao input
+  },
+  inputError: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red', // 🔹 Cor vermelha para destacar o erro
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
